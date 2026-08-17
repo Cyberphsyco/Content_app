@@ -9,10 +9,12 @@ Script Writer | ContentAI
 <header class="topbar">
 
     <div>
-        <h1>Script Writer</h1>
+        <h1>
+            Script Writer
+        </h1>
 
         <p>
-            Turn your ideas into engaging content.
+            Turn an idea into a Hook, Body and CTA.
         </p>
     </div>
 
@@ -21,84 +23,135 @@ Script Writer | ContentAI
 
 <div class="writer-layout">
 
-    <!-- ========================================= -->
     <!-- GENERATOR -->
-    <!-- ========================================= -->
 
-    <div class="generator-card">
+    <section class="generator-card">
 
         <h2>
-            Create a Script
+            Create a script
         </h2>
 
         <p class="muted">
-            Give ContentAI a topic and let it write your script.
+            Your profile information will automatically be used.
         </p>
 
 
-        <form id="scriptForm">
+        <div class="form-group">
 
-            <div class="form-group">
+            <label for="scriptTopic">
+                Topic
+            </label>
 
-                <label for="topic">
-                    What do you want to talk about?
-                </label>
+            <textarea
+                id="scriptTopic"
+                placeholder="What do you want to create content about?"
+                rows="5"
+            ></textarea>
 
-                <textarea
-                    id="topic"
-                    name="topic"
-                    placeholder="Example: How to stay consistent with calisthenics..."
-                    rows="6"
-                    required
-                ></textarea>
-
-            </div>
+        </div>
 
 
-            <button
-                type="submit"
-                id="generateBtn"
-                class="generate-btn"
+        <div class="form-group">
+
+            <label for="scriptNiche">
+                Niche
+            </label>
+
+            <input
+                id="scriptNiche"
+                value="{{ user.niche }}"
+                placeholder="Your niche"
             >
-                Generate Script
-            </button>
 
-        </form>
+        </div>
 
 
-        <div
-            id="errorMessage"
-            class="error-message"
-            style="display: none;"
-        ></div>
+        <div class="form-group">
 
-    </div>
+            <label for="scriptAudience">
+                Target Audience
+            </label>
+
+            <input
+                id="scriptAudience"
+                value="{{ user.audience }}"
+                placeholder="Your audience"
+            >
+
+        </div>
 
 
-    <!-- ========================================= -->
-    <!-- RESULT -->
-    <!-- ========================================= -->
+        <div class="form-group">
 
-    <div class="result-card">
+            <label for="scriptPlatform">
+                Platform
+            </label>
 
-        <div
-            id="emptyState"
-            class="empty-state"
+            <input
+                id="scriptPlatform"
+                value="{{ user.platform }}"
+                placeholder="Instagram, TikTok, YouTube..."
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="scriptGoal">
+                Goal
+            </label>
+
+            <input
+                id="scriptGoal"
+                value="{{ user.goal }}"
+                placeholder="Grow, educate, sell..."
+            >
+
+        </div>
+
+
+        <button
+            type="button"
+            class="primary-button full-button"
+            id="generateScriptButton"
+            onclick="generateScript()"
         >
+            Generate Script
+        </button>
+
+    </section>
+
+
+    <!-- RESULT -->
+
+    <section
+        class="result-card"
+        id="scriptResult"
+    >
+
+        <div
+            class="empty-result"
+            id="emptyResult"
+        >
+
+            <div>
+                ✦
+            </div>
 
             <h2>
                 Your script will appear here
             </h2>
 
-            <p class="muted">
-                Enter a topic and click "Generate Script".
+            <p>
+                Enter a topic and let ContentAI write it for you.
             </p>
 
         </div>
 
 
         <div
-            id="scriptResult"
+            id="generatedScript"
             style="display: none;"
         >
 
@@ -110,15 +163,15 @@ Script Writer | ContentAI
                         GENERATED SCRIPT
                     </span>
 
-                    <h2 id="scriptTitle">
+                    <h2 id="resultTitle">
                     </h2>
 
                 </div>
 
                 <button
                     type="button"
-                    id="copyBtn"
-                    class="copy-btn"
+                    class="copy-button"
+                    onclick="copyScript()"
                 >
                     Copy
                 </button>
@@ -126,20 +179,17 @@ Script Writer | ContentAI
             </div>
 
 
-            <!-- HOOK -->
-
             <div class="script-section">
 
                 <h3>
                     HOOK
                 </h3>
 
-                <p id="scriptHook"></p>
+                <p id="resultHook">
+                </p>
 
             </div>
 
-
-            <!-- BODY -->
 
             <div class="script-section">
 
@@ -147,12 +197,11 @@ Script Writer | ContentAI
                     BODY
                 </h3>
 
-                <p id="scriptBody"></p>
+                <p id="resultBody">
+                </p>
 
             </div>
 
-
-            <!-- CTA -->
 
             <div class="script-section">
 
@@ -160,15 +209,201 @@ Script Writer | ContentAI
                     CTA
                 </h3>
 
-                <p id="scriptCta"></p>
+                <p id="resultCTA">
+                </p>
 
             </div>
 
         </div>
 
-    </div>
+    </section>
 
 </div>
 
+
+<script>
+
+async function generateScript() {
+
+    const topic =
+        document.getElementById("scriptTopic").value.trim();
+
+    const niche =
+        document.getElementById("scriptNiche").value.trim();
+
+    const audience =
+        document.getElementById("scriptAudience").value.trim();
+
+    const platform =
+        document.getElementById("scriptPlatform").value.trim();
+
+    const goal =
+        document.getElementById("scriptGoal").value.trim();
+
+    const button =
+        document.getElementById("generateScriptButton");
+
+
+    if (!topic) {
+
+        alert("Please enter a topic.");
+
+        return;
+
+    }
+
+
+    button.disabled = true;
+
+    button.textContent = "Generating...";
+
+
+    try {
+
+        const response = await fetch(
+            "{{ url_for('generate_script') }}",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    topic: topic,
+
+                    niche: niche,
+
+                    audience: audience,
+
+                    platform: platform,
+
+                    goal: goal
+
+                })
+
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.error ||
+                "Could not generate script."
+            );
+
+        }
+
+
+        const script = data.script;
+
+
+        document.getElementById("emptyResult")
+            .style.display = "none";
+
+
+        document.getElementById("generatedScript")
+            .style.display = "block";
+
+
+        document.getElementById("resultTitle")
+            .textContent = script.title;
+
+
+        document.getElementById("resultHook")
+            .textContent = script.hook;
+
+
+        document.getElementById("resultBody")
+            .textContent = script.body;
+
+
+        document.getElementById("resultCTA")
+            .textContent = script.cta;
+
+
+    } catch (error) {
+
+        console.error(
+            "SCRIPT ERROR:",
+            error
+        );
+
+
+        alert(
+            error.message ||
+            "Something went wrong."
+        );
+
+
+    } finally {
+
+        button.disabled = false;
+
+        button.textContent = "Generate Script";
+
+    }
+
+}
+
+
+async function copyScript() {
+
+    const title =
+        document.getElementById("resultTitle").textContent;
+
+    const hook =
+        document.getElementById("resultHook").textContent;
+
+    const body =
+        document.getElementById("resultBody").textContent;
+
+    const cta =
+        document.getElementById("resultCTA").textContent;
+
+
+    const text = `
+
+${title}
+
+HOOK
+
+${hook}
+
+BODY
+
+${body}
+
+CTA
+
+${cta}
+
+`.trim();
+
+
+    try {
+
+        await navigator.clipboard.writeText(text);
+
+        alert("Script copied!");
+
+    } catch (error) {
+
+        console.error(
+            "COPY ERROR:",
+            error
+        );
+
+    }
+
+}
+
+</script>
 
 {% endblock %}
