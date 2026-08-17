@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ContentAI</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="brand">
+Content<span>AI</span>
+</div>
+
+<div class="nav-links">
+
+<a href="{{ url_for('login') }}">
+Login
+</a>
+
+<a href="{{ url_for('register') }}" class="nav-button">
+Get Started
+</a>
+
+</div>
+
+</nav>
+
+
+<main class="hero">
+
+<div class="hero-content">
+
+<div class="badge">
+AI CONTENT SYSTEM
+</div>
+
+<h1>
+Turn your niche into
+<span>content.</span>
+</h1>
+
+<p>
+ContentAI gives creators personalized content ideas
+and detailed scripts built around their niche,
+audience and goals.
+</p>
+
+<div class="hero-buttons">
+
+<a href="{{ url_for('register') }}" class="primary-button">
+Start Creating
+</a>
+
+<a href="{{ url_for('login') }}" class="secondary-button">
+Login
+</a>
+
+</div>
+
+</div>
+
+</main>
+
+</body>
+
+</html>

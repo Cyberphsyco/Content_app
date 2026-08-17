@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        ContentAI
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+<body>
+
+<div class="mobile-header">
+
+    <button
+        type="button"
+        class="mobile-menu-btn"
+        id="mobileMenuBtn"
+        aria-label="Open menu"
+    >
+        ☰
+    </button>
+
+    <div class="mobile-logo">
+        Content<span>AI</span>
+    </div>
+
+    <div class="mobile-avatar">
+        {{ user.username[0]|upper }}
+    </div>
+
+</div>
+
+
+<div
+    class="sidebar-overlay"
+    id="sidebarOverlay"
+>
+</div>
+
+
+<div class="app">
+
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
+
+        <div class="logo">
+            Content<span>AI</span>
+        </div>
+
+
+        <div class="user-box">
+
+
+            <div>
+
+                <strong>
+                    {{ user.username }}
+                </strong>
+
+                <small>
+                    Creator
+                </small>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="{% if request.endpoint == 'dashboard' %}active{% endif %}"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="{{ url_for('ideas') }}"
+                class="{% if request.endpoint == 'ideas' %}active{% endif %}"
+            >
+                Content Ideas
+            </a>
+
+
+            <a
+                href="{{ url_for('script') }}"
+                class="{% if request.endpoint == 'script' %}active{% endif %}"
+            >
+                Script Writer
+            </a>
+
+
+            <a
+                href="{{ url_for('calendar') }}"
+                class="{% if request.endpoint == 'calendar' %}active{% endif %}"
+            >
+                Calendar
+            </a>
+
+
+            <a
+                href="{{ url_for('scripts') }}"
+                class="{% if request.endpoint == 'scripts' %}active{% endif %}"
+            >
+                My Scripts
+            </a>
+
+        </nav>
+
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="logout"
+        >
+            Log out
+        </a>
+
+    </aside>
+
+
+    <main class="main">
+
+        {% block content %}{% endblock %}
+
+    </main>
+
+</div>
+
+
+<script
+    src="{{ url_for('static', filename='js/app.js') }}"
+></script>
+
+</body>
+
+</html>

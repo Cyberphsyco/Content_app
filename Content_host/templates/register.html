@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Account | ContentAI</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body class="auth-page">
+
+<div class="auth-container">
+
+<div class="auth-card">
+
+<div class="auth-logo">
+Content<span>AI</span>
+</div>
+
+<div class="auth-header">
+
+<h1>Create your account</h1>
+
+<p>Build your personalized content system.</p>
+
+</div>
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+{% for category, message in messages %}
+
+<div class="flash {{ category }}">
+{{ message }}
+</div>
+
+{% endfor %}
+
+{% endwith %}
+
+
+<form method="POST" class="auth-form">
+
+<div class="form-group">
+
+<label>Username</label>
+
+<input
+type="text"
+name="username"
+placeholder="Your username"
+required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input
+type="email"
+name="email"
+placeholder="you@example.com"
+required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input
+type="password"
+name="password"
+placeholder="At least 6 characters"
+required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Confirm Password</label>
+
+<input
+type="password"
+name="confirm_password"
+placeholder="Confirm your password"
+required
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Your Niche</label>
+
+<input
+type="text"
+name="niche"
+placeholder="e.g. Fitness, Tech, Finance"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Target Audience</label>
+
+<input
+type="text"
+name="audience"
+placeholder="e.g. Busy professionals"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Platform</label>
+
+<input
+type="text"
+name="platform"
+placeholder="e.g. Instagram"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Content Goal</label>
+
+<input
+type="text"
+name="goal"
+placeholder="e.g. Grow audience"
+>
+
+</div>
+
+
+<button class="auth-button" type="submit">
+
+Create Account
+
+</button>
+
+</form>
+
+
+<div class="auth-footer">
+
+Already have an account?
+
+<a href="{{ url_for('login') }}">
+Sign in
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

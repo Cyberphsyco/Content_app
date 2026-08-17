@@ -1,0 +1,121 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}
+Settings | ContentAI
+{% endblock %}
+
+{% block content %}
+
+<header class="topbar">
+
+    <div>
+
+        <h1>
+            Settings
+        </h1>
+
+        <p>
+            Customize your creator profile.
+        </p>
+
+    </div>
+
+</header>
+
+
+<div class="settings-card">
+
+    <form method="POST">
+
+        <div class="form-group">
+
+            <label>
+                Username
+            </label>
+
+            <input
+                type="text"
+                name="username"
+                value="{{ user.username }}"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Niche
+            </label>
+
+            <input
+                type="text"
+                name="niche"
+                value="{{ user.niche }}"
+                placeholder="e.g. Fitness"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Target Audience
+            </label>
+
+            <input
+                type="text"
+                name="audience"
+                value="{{ user.audience }}"
+                placeholder="e.g. Busy professionals"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Platform
+            </label>
+
+            <input
+                type="text"
+                name="platform"
+                value="{{ user.platform }}"
+                placeholder="e.g. Instagram"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Goal
+            </label>
+
+            <input
+                type="text"
+                name="goal"
+                value="{{ user.goal }}"
+                placeholder="e.g. Grow my audience"
+            >
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="auth-button"
+        >
+            Save Changes
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}
+My Scripts | ContentAI
+{% endblock %}
+
+{% block content %}
+
+<header class="topbar">
+
+    <div>
+
+        <h1>
+            My Scripts
+        </h1>
+
+        <p>
+            Search and manage your generated scripts.
+        </p>
+
+    </div>
+
+</header>
+
+
+<div class="search-box">
+
+    <input
+        type="text"
+        id="scriptSearch"
+        placeholder="Search your scripts..."
+    >
+
+</div>
+
+
+<div class="scripts-list" id="scriptsList">
+
+    {% for script in contents %}
+
+    <div class="script-wrapper">
+
+        <div
+            class="script-item"
+            onclick="toggleScript({{ script.id }})"
+        >
+
+            <div>
+
+                <div class="script-title">
+                    {{ script.title }}
+                </div>
+
+                <div class="script-meta">
+
+                    <span>
+                        {{ script.platform or "Content" }}
+                    </span>
+
+                    <span>
+                        {{ script.created_at.strftime('%d %b %Y') }}
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="script-arrow">
+                →
+            </div>
+
+        </div>
+
+
+        <div
+            class="script-expanded"
+            id="script-{{ script.id }}"
+        >
+
+            <div class="expanded-section">
+
+                <div class="section-label hook-label">
+                    HOOK
+                </div>
+
+                <p>
+                    {{ script.hook }}
+                </p>
+
+            </div>
+
+
+            <div class="expanded-section">
+
+                <div class="section-label body-label">
+                    BODY
+                </div>
+
+                <p>
+                    {{ script.body }}
+                </p>
+
+            </div>
+
+
+            <div class="expanded-section">
+
+                <div class="section-label cta-label">
+                    CTA
+                </div>
+
+                <p>
+                    {{ script.cta }}
+                </p>
+
+            </div>
+
+
+            <button
+                class="delete-button"
+                onclick="deleteScript(event, {{ script.id }})"
+            >
+                Delete Script
+            </button>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

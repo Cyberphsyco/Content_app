@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Verify Code | ContentAI</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body class="auth-page">
+<a href="{{ url_for('login') }}" class="back-to-login">
+    ← Back to Login
+</a>
+
+<div class="auth-container">
+
+<div class="auth-card">
+
+<div class="auth-logo">
+Content<span>AI</span>
+</div>
+
+<div class="auth-header">
+
+<h1>Check your email</h1>
+
+<p>Enter the 6-digit verification code.</p>
+
+</div>
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+{% for category, message in messages %}
+
+<div class="flash {{ category }}">
+{{ message }}
+</div>
+
+{% endfor %}
+
+{% endwith %}
+
+
+<form method="POST" class="auth-form">
+
+<div class="form-group">
+
+<label>Verification Code</label>
+
+<input
+type="text"
+name="code"
+maxlength="6"
+minlength="6"
+inputmode="numeric"
+placeholder="000000"
+required
+>
+
+</div>
+
+
+<button class="auth-button" type="submit">
+
+Verify Code
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}
+Calendar | ContentAI
+{% endblock %}
+
+{% block content %}
+
+<header class="topbar">
+
+    <div>
+
+        <h1>
+            Content Calendar
+        </h1>
+
+        <p>
+            Keep track of your content.
+        </p>
+
+    </div>
+
+</header>
+
+
+<div class="calendar-list">
+
+    {% for content in contents %}
+
+    <div class="calendar-item">
+
+        <div class="calendar-date">
+
+            {{ content.created_at.strftime('%d') }}
+
+            <span>
+                {{ content.created_at.strftime('%b') }}
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                {{ content.title }}
+            </h3>
+
+            <p>
+                {{ content.platform or "Content" }}
+            </p>
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+
+        <h2>
+            No content yet
+        </h2>
+
+        <p>
+            Generate your first script to start building your calendar.
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
