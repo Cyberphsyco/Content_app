@@ -9,61 +9,170 @@ Content Ideas | ContentAI
 <header class="topbar">
 
     <div>
-        <h1>Content Ideas</h1>
+
+        <h1>
+            Content Ideas
+        </h1>
 
         <p>
             Generate ideas specifically for your niche.
         </p>
+
     </div>
 
 </header>
 
 
-<div class="generator-card">
+<section class="generator-card">
 
-    <div class="card-header">
+    <h2>
+        Generate Content Ideas
+    </h2>
 
-        <div>
-            <h2>Generate Ideas</h2>
-
-            <p>
-                Let AI find content opportunities for you.
-            </p>
-        </div>
-
-    </div>
-
-    <!-- Your existing idea generation form goes here -->
-
-</div>
+    <p class="muted">
+        Tell ContentAI about your audience and goals.
+    </p>
 
 
-<div class="ideas-grid" id="ideasContainer">
+    <div class="form-group">
 
-    {% for idea in ideas %}
+        <label for="ideaNiche">
+            Niche
+        </label>
 
-    <div class="idea-card">
-
-        <div class="idea-number">
-            {{ loop.index }}
-        </div>
-
-        <div>
-
-            <h3>
-                {{ idea.title }}
-            </h3>
-
-            <p>
-                {{ idea.description }}
-            </p>
-
-        </div>
+        <input
+            type="text"
+            id="ideaNiche"
+            value="{{ user.niche }}"
+            placeholder="e.g. Fitness"
+        >
 
     </div>
 
-    {% endfor %}
 
-</div>
+    <div class="form-group">
+
+        <label for="ideaAudience">
+            Audience
+        </label>
+
+        <input
+            type="text"
+            id="ideaAudience"
+            value="{{ user.audience }}"
+            placeholder="e.g. Beginners"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="ideaPlatform">
+            Platform
+        </label>
+
+        <input
+            type="text"
+            id="ideaPlatform"
+            value="{{ user.platform }}"
+            placeholder="e.g. Instagram"
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="ideaGoal">
+            Goal
+        </label>
+
+        <input
+            type="text"
+            id="ideaGoal"
+            value="{{ user.goal }}"
+            placeholder="e.g. Grow audience"
+        >
+
+    </div>
+
+
+    <button
+        type="button"
+        class="primary-button full-button"
+        id="generateIdeasButton"
+        onclick="generateIdeas()"
+    >
+        Generate 10 Ideas
+    </button>
+
+</section>
+
+
+<section
+    class="ideas-grid"
+    id="ideasGrid"
+>
+
+    {% if ideas %}
+
+        {% for idea in ideas %}
+
+        <div class="idea-card">
+
+            <div class="idea-number">
+                {{ loop.index }}
+            </div>
+
+
+            <div class="idea-content">
+
+                <h3>
+                    {{ idea.title }}
+                </h3>
+
+                <p>
+                    {{ idea.description }}
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="idea-delete"
+                onclick="deleteIdea({{ idea.id }})"
+                aria-label="Delete idea"
+            >
+                ×
+            </button>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty-result">
+
+            <div>
+                ✦
+            </div>
+
+            <h2>
+                Your ideas will appear here
+            </h2>
+
+            <p>
+                Generate 10 content ideas based on your niche,
+                audience and goals.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</section>
 
 {% endblock %}
